@@ -1,7 +1,63 @@
 import React, { Component } from 'react';
-import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Form = styled.form`
+  margin-bottom: 20px;
+  padding: 16px;
+
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+`;
+
+const InnerFormContainer = styled.div`
+  display: flex;
+  margin-bottom: 16px;
+`;
+
+const FormLabel = styled.label`
+  min-width: 70px;
+
+  font-weight: 600;
+`;
+
+const FormInput = styled.input`
+  width: 100%;
+  padding-left: 6px;
+  border-bottom: 1px solid #505050;
+
+  &:active,
+  &:hover,
+  &:focus {
+    outline: 0;
+    outline-offset: 0;
+  }
+`;
+
+const Button = styled.button`
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin: 0 auto;
+  padding: 0;
+
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.87;
+
+  color: #ffffff;
+
+  background-color: #188ae8a6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: background-color 200ms linear;
+
+  &:hover,
+  &:focus {
+    background-color: #188ce8;
+  }
+`;
 
 export default class ContactForm extends Component {
   state = {
@@ -33,13 +89,10 @@ export default class ContactForm extends Component {
 
   render() {
     return (
-      <form className={css.form} onSubmit={this.handleSubmit}>
-        <div className={css.formContainer}>
-          <label htmlFor={this.inputNameId} className={css.formLabel}>
-            Name
-          </label>
-          <input
-            className={css.formInput}
+      <Form onSubmit={this.handleSubmit}>
+        <InnerFormContainer>
+          <FormLabel htmlFor={this.inputNameId}>Name</FormLabel>
+          <FormInput
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -49,13 +102,10 @@ export default class ContactForm extends Component {
             onChange={this.handleInputChange}
             value={this.state.name}
           />
-        </div>
-        <div className={css.formContainer}>
-          <label htmlFor={this.inputNumberId} className={css.formLabel}>
-            Number
-          </label>
-          <input
-            className={css.formInput}
+        </InnerFormContainer>
+        <InnerFormContainer>
+          <FormLabel htmlFor={this.inputNumberId}>Number</FormLabel>
+          <FormInput
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -65,11 +115,9 @@ export default class ContactForm extends Component {
             onChange={this.handleInputChange}
             value={this.state.number}
           />
-        </div>
-        <button type="submit" className={css.btn}>
-          Add contact
-        </button>
-      </form>
+        </InnerFormContainer>
+        <Button type="submit">Add contact</Button>
+      </Form>
     );
   }
 }
