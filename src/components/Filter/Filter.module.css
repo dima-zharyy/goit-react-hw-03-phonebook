@@ -1,0 +1,18 @@
+.filterWrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.filterLabel {
+  margin-right: 12px;
+
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.filterInput {
+  width: 100%;
+  padding-left: 6px;
+  border-bottom: 1px solid #505050;
+}
