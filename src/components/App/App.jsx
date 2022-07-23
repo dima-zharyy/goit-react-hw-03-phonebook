@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
 import { ContactForm, ContactList, Filter } from 'components';
+
 import {
   AppContainer,
   AppTitle,
   AppSubTitle,
   ContactsWrapper,
 } from './App.styled';
-import { nanoid } from 'nanoid';
 
-const initialContacts = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
+import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+
+    try {
+      const parsedContacts = JSON.parse(savedContacts);
+      if (parsedContacts) {
+        this.setState({ contacts: parsedContacts });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      console.log('обновилось состояние  контактов');
+
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   onSubmit = data => {
     const isAlreadyInContacts = this.state.contacts.some(
@@ -56,7 +72,7 @@ export class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, contacts } = this.state;
     const filteredContacts = this.filteredContacts();
 
     return (
@@ -67,7 +83,7 @@ export class App extends Component {
         <AppSubTitle>Contacts</AppSubTitle>
         <ContactsWrapper>
           <Filter onChange={this.handleFilterChange} value={filter} />
-          {this.state.contacts.length > 0 ? (
+          {contacts.length > 0 ? (
             <ContactList
               contacts={filteredContacts}
               onClick={this.handleClickDel}
