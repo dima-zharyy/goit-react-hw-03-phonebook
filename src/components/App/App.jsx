@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
+import { ContactForm, ContactList, Filter } from 'components';
+import {
+  AppContainer,
+  AppTitle,
+  AppSubTitle,
+  ContactsWrapper,
+} from './App.styled';
 import { nanoid } from 'nanoid';
-import styled from 'styled-components';
 
 const initialContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -12,39 +15,6 @@ const initialContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
-const AppContainer = styled.div`
-  width: 450px;
-  padding: 20px;
-  margin: 0 auto;
-
-  background-color: rgb(238, 232, 232);
-  overflow: hidden;
-  border-top-right-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-`;
-
-const AppTitle = styled.h1`
-  margin-bottom: 15px;
-
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-`;
-
-const AppSubTitle = styled.h2`
-  margin-bottom: 15px;
-
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-`;
-
-const ContactsWrapper = styled.div`
-  padding: 16px;
-
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-`;
 export class App extends Component {
   state = {
     contacts: initialContacts,
@@ -97,10 +67,14 @@ export class App extends Component {
         <AppSubTitle>Contacts</AppSubTitle>
         <ContactsWrapper>
           <Filter onChange={this.handleFilterChange} value={filter} />
-          <ContactList
-            contacts={filteredContacts}
-            onClick={this.handleClickDel}
-          />
+          {this.state.contacts.length > 0 ? (
+            <ContactList
+              contacts={filteredContacts}
+              onClick={this.handleClickDel}
+            />
+          ) : (
+            <p>Your contact book is empty</p>
+          )}
         </ContactsWrapper>
       </AppContainer>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
+import { ContactListItem } from 'components';
 import PropTypes from 'prop-types';
-import ContactListItem from 'components/ContactListItem/ContactListItem';
 
-const ContactList = ({ contacts, onClick }) => {
+export const ContactList = ({ contacts, onClick }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => {
@@ -18,8 +18,6 @@ const ContactList = ({ contacts, onClick }) => {
     </ul>
   );
 };
-
-export default ContactList;
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(

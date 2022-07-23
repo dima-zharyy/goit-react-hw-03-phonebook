@@ -22,7 +22,7 @@ const FilterInput = styled.input`
   border-bottom: 1px solid #505050;
 `;
 
-export default function Filter({ onChange, value }) {
+export const Filter = ({ onChange, value }) => {
   const filterId = nanoid(5);
   return (
     <FilterWrapper>
@@ -35,7 +35,7 @@ export default function Filter({ onChange, value }) {
       />
     </FilterWrapper>
   );
-}
+};
 
 Filter.propTypes = {
   onChange: PropTypes.func.isRequired,
